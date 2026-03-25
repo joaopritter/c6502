@@ -35,6 +35,8 @@ Logic init_logic() {
   MAKE_INSTR(0xA9, LDA, IMM, 2, 2);
   MAKE_INSTR(0xA5, LDA, ZRP, 2, 3);
   MAKE_INSTR(0xAD, LDA, ABS, 3, 4);
+  MAKE_INSTR(0xBD, LDA, ABX, 3, 4);
+  MAKE_INSTR(0xB9, LDA, ABY, 3, 4);
 
   MAKE_INSTR(0xAA, TAX, IMP, 1, 2);
 

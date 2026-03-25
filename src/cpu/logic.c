@@ -33,6 +33,9 @@ Logic init_logic() {
   init_opcode(&l.op_code_table[HEX], CODE, MODE, SIZE, CYCLES, #CODE, #MODE)
 
   MAKE_INSTR(0xA9, LDA, IMM, 2, 2);
+
+  MAKE_INSTR(0xAA, TAX, IMP, 1, 2);
+
   MAKE_INSTR(0x00, BRK, IMM, 1, 2);
 
 #undef MAKE_INSTR

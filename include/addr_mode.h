@@ -37,4 +37,6 @@ uint16_t ABY(Control *c);
 uint16_t IMP(Control *c);
 
 uint16_t ZRP(Control *c);
+
+uint16_t ZRX(Control *c);
 #endif

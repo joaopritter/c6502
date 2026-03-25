@@ -33,6 +33,11 @@ uint16_t ABY(Control *c) {
   return addr;
 }
 
+uint16_t ZRX(Control *c) {
+  uint16_t val = c->memory[c->counter++];
+  return (val + c->x) % 256;
+}
+
 uint16_t IMP(Control *c) { return 0; };
 
 uint16_t ZRP(Control *c) { return mem_read(c, c->counter++); }

@@ -1,3 +1,4 @@
+#include "control.h"
 #include "cpu/central.h"
 #include "unity.h"
 #include "unity_internals.h"
@@ -18,6 +19,15 @@ void test_0xa9(void) {
   TEST_ASSERT_EQUAL(cpu.control.a, 0x05);
 }
 
+void test_0xa5(void) {
+  CPU cpu = init_cpu();
+  mem_write(&cpu.control, 0x10, 0x55);
+  uint8_t program[3] = {0xA5, 0x10, 0x00};
+  load(&cpu, program);
+  run(&cpu);
+  TEST_ASSERT_EQUAL(cpu.control.a, 0x55);
+}
+
 void test_0xaa(void) {
   CPU cpu = init_cpu();
   cpu.control.a = 10;
@@ -30,6 +40,7 @@ void test_0xaa(void) {
 int main(void) {
   UNITY_BEGIN();
   RUN_TEST(test_0xa9);
+  RUN_TEST(test_0xa5);
   RUN_TEST(test_0xaa);
   return UNITY_END();
 }

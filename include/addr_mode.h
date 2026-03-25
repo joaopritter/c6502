@@ -26,7 +26,9 @@
 //             // to current PC.
 // } AddressingMode;
 
-uint16_t IMM(Control *cu);
+uint16_t IMM(Control *c);
 
-uint16_t IMP(Control *cu);
+uint16_t ABS(Control *c);
+
+uint16_t IMP(Control *c);
 #endif

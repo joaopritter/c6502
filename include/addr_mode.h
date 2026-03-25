@@ -4,39 +4,72 @@
 #include "cpu/control.h"
 #include <stdint.h>
 
-// typedef enum {
-//   IMPLICIT,    // no address operand.
-//   ACCUMULATOR, // act on the accumulator.
-//   IMMEDIATE,   // doesnt fetch from memory.
-//   ZERO_PAGE,   // fetches from 8 bit address on zero page.
-//   ZERO_PAGE_X, // val = PEEK((arg + X) % 256).
-//   ZERO_PAGE_Y, // val = PEEK((arg + Y) % 256).
-//   ABSOLUTE,    // fetch from 16-bit address anywhere in memory.
-//   ABSOLUTE_X,  // val = PEEK(arg + X).
-//   ABSOLUTE_Y,  // val = PEEK(arg + X).
-//   INDIRECT, // special addressing mode that can jump to address stored in
-//   16-bit
-//             // pointer anywhere in memory.
-//   INDEXED_INDIRECT, // val = PEEK(PEEK((arg + X) % 256) + PEEK((arg + X + 1)
-//   %
-//                     // 256) * 256).
-//   INDIRECT_INDEXED, // val = PEEK(PEEK(arg) + PEEK((arg + 1) % 256) * 256 +
-//   Y). RELATIVE, // branch instructions have a relative 8-bit signed offset
-//   relative
-//             // to current PC.
-// } AddressingMode;
+// Accumulator:
+// Uses the value in the accumulator register as the value for the operation,
+// i.e.: The accumulator both provides the input value and receives the result.
+uint16_t ACC(Control *c);
 
+// Immediate:
+// Uses the 8-bit operand itself as the value for the operation, rather than
+// fetching a value from a memory address.
 uint16_t IMM(Control *c);
 
+// Absolute:
+// Fetches a 16-bit address anywhere in memory.
+// I.e.: `{0xAD, 0x22, 0x0C}` reads from `0x0C22`, since the 6502 uses little
+// endian addressing, the order of bytes is low -> high.
 uint16_t ABS(Control *c);
 
+// Absolute Indexed X:
+// Fetches a 16-bit address increased of the value in register X.
+// See ABS for Absolute addressing.
 uint16_t ABX(Control *c);
 
+// Absolute Indexed Y:
+// Fetches a 16-bit address increased of the value in register Y.
+// Check ABS for Absolute addressing.
 uint16_t ABY(Control *c);
 
+// Implied:
+// No address operand, the destination of results are implied in the opcode.
 uint16_t IMP(Control *c);
 
+// Zero Page:
+// Fetches an 8-bit address on the zero page (`$0000` - `$00FF`).
 uint16_t ZRP(Control *c);
 
+// Zero Page Indexed X:
+// Fetches an 8-bit address on the zero page increased by the value in register
+// X. See ZRP for Zero Page addressing.
+// Formula: (arg + X) % 256
 uint16_t ZRX(Control *c);
+
+// Zero Page Indexed Y:
+// Fetches an 8-bit address on the zero page increased by the value in register
+// Y. See ZRP for Zero Page addressing.
+// Formula: (arg + Y) % 256
+uint16_t ZRY(Control *c);
+
+// Indirect:
+// Fetches the address stored in a 16-bit pointer anywhere in memory.
+uint16_t IND(Control *c);
+
+// Indexed Indirect (X):
+// Fetches the address stored in a 16-bit pointer anywhere in memory increased
+// by the value in the register X.
+// Formula: mem_read((arg + X) % 256) + mem_read((arg + X + 1) % 256) * 256
+uint16_t IDX(Control *c);
+
+// Indirect Indexed (Y):
+// Fetches the address stored in a 16-bit pointer anywhere in memory increased
+// by the value in the register Y.
+// Formula: mem_read((arg + Y) % 256) + mem_read((arg + Y + 1) % 256) * 256
+uint16_t IDY(Control *c);
+
+// Relative:
+// User argument as the offset relative to the current counter (after op is
+// read) to specify the target address.
+uint16_t REL(Control *c);
+
+// Source: https://www.nesdev.org/wiki/CPU_addressing_modes
 #endif

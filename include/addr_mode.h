@@ -31,4 +31,6 @@ uint16_t IMM(Control *c);
 uint16_t ABS(Control *c);
 
 uint16_t IMP(Control *c);
+
+uint16_t ZRP(Control *c);
 #endif

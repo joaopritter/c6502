@@ -3,11 +3,16 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-void LDA(Control *cu, uint16_t addr) {
-  uint8_t param = cu->memory[addr];
-  cu->a = param;
+void LDA(Control *c, uint16_t addr) {
+  uint8_t param = c->memory[addr];
+  c->a = param;
 };
 
-void BRK(Control *cu, uint16_t addr) { exit(0); };
+void TAX(Control *c, uint16_t addr) {
+  c->x = c->a;
+  update_zero_and_negative_flags(c, c->x);
+}
 
-void ILL(Control *cu, uint16_t addr) { exit(1); };
+void BRK(Control *c, uint16_t addr) { exit(0); };
+
+void ILL(Control *c, uint16_t addr) { exit(1); };

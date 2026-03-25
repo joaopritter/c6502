@@ -4,9 +4,11 @@
 #include "cpu/control.h"
 #include <stdint.h>
 
-void LDA(Control *cu, uint16_t addr);
+void LDA(Control *c, uint16_t addr);
 
-void BRK(Control *cu, uint16_t addr);
+void TAX(Control *c, uint16_t addr);
 
-void ILL(Control *cu, uint16_t addr);
+void BRK(Control *c, uint16_t addr);
+
+void ILL(Control *c, uint16_t addr);
 #endif

@@ -10,6 +10,15 @@ CPU init_cpu() {
   return cpu;
 }
 
+void reset(CPU *cpu) {
+  cpu->control.a = 0;
+  cpu->control.x = 0;
+  cpu->control.y = 0;
+  cpu->control.stack_pointer = STACK_RESET;
+  cpu->control.counter = 0x8000;
+  cpu->control.flag = 0b100100;
+}
+
 void load(CPU *cpu, uint8_t program[]) {
   int finish_loading = 0;
 

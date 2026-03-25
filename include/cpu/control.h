@@ -4,6 +4,7 @@
 
 // source: https://www.nesdev.org/wiki/
 typedef struct {
+  int running;
   uint8_t memory[0x10000];
   /*
     $0000–$07FF 	$0800 	2 KB internal RAM

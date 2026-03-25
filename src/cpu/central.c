@@ -35,7 +35,9 @@ void exec(CPU *cpu, OPCode c) {
 void run(CPU *cpu) {
   uint8_t value;
   OPCode inst;
-  while (1) {
+
+  cpu->control.running = 1;
+  while (cpu->control.running == 1) {
     value = mem_read(&cpu->control, cpu->control.counter);
     cpu->control.counter++;
     inst = decode(&cpu->logic, value);

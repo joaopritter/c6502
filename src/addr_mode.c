@@ -15,6 +15,24 @@ uint16_t ABS(Control *c) {
   return addr;
 };
 
+uint16_t ABX(Control *c) {
+  uint16_t lo, hi, addr;
+  lo = mem_read(c, c->counter++);
+  hi = mem_read(c, c->counter++);
+
+  addr = lo + (hi << 8) + c->x;
+  return addr;
+}
+
+uint16_t ABY(Control *c) {
+  uint16_t lo, hi, addr;
+  lo = mem_read(c, c->counter++);
+  hi = mem_read(c, c->counter++);
+
+  addr = lo + (hi << 8) + c->y;
+  return addr;
+}
+
 uint16_t IMP(Control *c) { return 0; };
 
 uint16_t ZRP(Control *c) { return mem_read(c, c->counter++); }

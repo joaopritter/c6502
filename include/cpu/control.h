@@ -139,7 +139,5 @@ uint8_t mem_read(Control *c, uint16_t addr);
 
 void mem_write(Control *c, uint16_t addr, uint8_t value);
 
-void update_zero_and_negative_flags(Control *c, uint8_t result);
-
 // Source: https://www.nesdev.org/wiki/
 #endif

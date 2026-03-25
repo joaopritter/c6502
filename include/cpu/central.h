@@ -8,7 +8,7 @@ typedef struct {
   Logic logic;
 } CPU;
 
-CPU cpu();
+CPU init_cpu();
 
 void load(CPU *cpu, uint8_t program[]);
 

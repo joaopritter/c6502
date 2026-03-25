@@ -7,4 +7,6 @@
 void LDA(Control *cu, uint16_t addr);
 
 void BRK(Control *cu, uint16_t addr);
+
+void ILL(Control *cu, uint16_t addr);
 #endif

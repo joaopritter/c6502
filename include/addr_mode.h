@@ -27,4 +27,6 @@
 // } AddressingMode;
 
 uint16_t IMM(Control *cu);
+
+uint16_t IMP(Control *cu);
 #endif

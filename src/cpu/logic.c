@@ -1,36 +1,46 @@
-#include "cpu/logic.h"
 #include <stdint.h>
+#include <string.h>
 
 #include "addr_mode.h"
+#include "cpu/logic.h"
 #include "instr.h"
 
-Logic logic() {
+static void init_opcode(OPCode *op, instruction code, address_mode mode,
+                        uint8_t size, uint8_t cycles, const char *s_inst,
+                        const char *s_mode) {
+  op->inst = code;
+  op->mode = mode;
+  op->size = size;
+  op->cycles = cycles;
+
+  strncpy(op->s_inst, s_inst, sizeof(op->s_inst) - 1);
+  op->s_inst[sizeof(op->s_inst) - 1] = '\0';
+
+  strncpy(op->s_mode, s_mode, sizeof(op->s_mode) - 1);
+  op->s_mode[sizeof(op->s_mode) - 1] = '\0';
+}
+
+Logic init_logic() {
   Logic l;
-  OPCode c;
-  OPCode op_code_table[256];
+  OPCode illegal_opcode;
+  init_opcode(&illegal_opcode, ILL, IMP, 1, 1, "ILL", "IMP");
 
-  // fill jump table with ILLEGALs
-  // instr.addr = &mos6502::Addr_IMP;
-  // instr.saddr = "(null)";
-  // instr.code = &mos6502::Op_ILLEGAL;
-  // instr.scode = "(null)";
-  // instr.penalty = false;
-  // instr.cycles = 0;
-  // for(int i = 0; i < 256; i++)
-  // {
-  //    InstrTable[i] = instr;
-  // }
+  for (int i = 0; i < 256; i++) {
+    l.op_code_table[i] = illegal_opcode;
+  }
 
-  // insert opcodes
-#define MAKE_INSTR(HEX, CODE, MODE, CYCLES)                                    \
-  c.inst = CODE;                                                               \
-  c.mode = MODE;                                                               \
-  c.cycles = CYCLES;                                                           \
-  l.op_code_table[HEX] = c;
-  MAKE_INSTR(0xA9, LDA, IMM, 2);
-  MAKE_INSTR(0x00, BRK, IMM, 2)
+#define MAKE_INSTR(HEX, CODE, MODE, SIZE, CYCLES)                              \
+  init_opcode(&l.op_code_table[HEX], CODE, MODE, SIZE, CYCLES, #CODE, #MODE)
+
+  MAKE_INSTR(0xA9, LDA, IMM, 2, 2);
+  MAKE_INSTR(0x00, BRK, IMM, 1, 2);
+
+#undef MAKE_INSTR
 
   return l;
 };
 
-OPCode decode(Logic *l, uint8_t code) { return l->op_code_table[code]; }
+OPCode decode(Logic *l, uint8_t code) {
+  OPCode c = l->op_code_table[code];
+  return c;
+}

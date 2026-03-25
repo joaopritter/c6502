@@ -7,6 +7,10 @@ uint8_t mem_read(Control *c, uint16_t addr) {
   return val;
 }
 
+void mem_write(Control *c, uint16_t addr, uint8_t value) {
+  c->memory[addr] = value;
+}
+
 void update_zero_and_negative_flags(Control *c, uint8_t result) {
   if (result) {
     c->flag = c->flag | 0b00000010;

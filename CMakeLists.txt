@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(cmos6502 C)
+project(c6502 C)
 
 set(CMAKE_C_STANDARD 99)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(SOURCES
     src/main.c
@@ -13,9 +15,9 @@ set(SOURCES
     src/cpu/logic.c
 )
 
-add_executable(game_C ${SOURCES})
+add_executable(c6502 ${SOURCES})
 
-target_include_directories(game_C PRIVATE
+target_include_directories(c6502 PRIVATE
     include
     include/cpu
 )

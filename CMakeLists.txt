@@ -5,6 +5,8 @@ project(c6502 C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+option(BUILD_TESTING "Build unit tests" OFF)
+
 set(LIB_SOURCES
     src/addr_mode.c
     src/instr.c
@@ -23,10 +25,7 @@ target_include_directories(c6502 PRIVATE
     include/cpu
 )
 
-# =========================================================
-# --- Unity Testing Setup ---
-# =========================================================
-
+if(BUILD_TESTING)
 set(UNITY_DIR ${CMAKE_SOURCE_DIR}/extern/Unity/src)
 
 set(UNITY_SOURCES
@@ -52,13 +51,9 @@ target_include_directories(c6502_tests PRIVATE
 enable_testing()
 add_test(NAME c6502_tests COMMAND $<TARGET_FILE:c6502_tests>)
 
-add_custom_command(TARGET c6502_tests POST_BUILD
-    COMMAND $<TARGET_FILE:c6502_tests>
-    COMMENT "Running c6502 unit tests..."
-)
-
 add_custom_target(run_tests
     COMMAND $<TARGET_FILE:c6502_tests>
     DEPENDS c6502_tests
     COMMENT "Running c6502 unit tests manually..."
 )
+endif()

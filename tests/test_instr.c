@@ -16,7 +16,7 @@ void test_0xa9(void) {
   uint8_t program[3] = {0xA9, 0x05, 0x00};
   load(&cpu, program);
   run(&cpu);
-  TEST_ASSERT_EQUAL(cpu.control.a, 0x05);
+  TEST_ASSERT_EQUAL(0x05, cpu.control.a);
 }
 
 void test_0xa5(void) {
@@ -25,7 +25,7 @@ void test_0xa5(void) {
   uint8_t program[3] = {0xA5, 0x10, 0x00};
   load(&cpu, program);
   run(&cpu);
-  TEST_ASSERT_EQUAL(cpu.control.a, 0x55);
+  TEST_ASSERT_EQUAL(0x55, cpu.control.a);
 }
 
 void test_0xb5(void) {
@@ -35,7 +35,7 @@ void test_0xb5(void) {
   uint8_t program[3] = {0xB5, 0x10, 0x00};
   load(&cpu, program);
   run(&cpu);
-  TEST_ASSERT_EQUAL(cpu.control.a, 0x55);
+  TEST_ASSERT_EQUAL(0x55, cpu.control.a);
 }
 
 void test_0xad(void) {
@@ -44,7 +44,7 @@ void test_0xad(void) {
   uint8_t program[4] = {0xAD, 0x22, 0x0C, 0x00};
   load(&cpu, program);
   run(&cpu);
-  TEST_ASSERT_EQUAL(cpu.control.a, 0x55);
+  TEST_ASSERT_EQUAL(0x55, cpu.control.a);
 }
 
 void test_0xbd(void) {
@@ -54,7 +54,7 @@ void test_0xbd(void) {
   uint8_t program[4] = {0xBD, 0x22, 0x0C, 0x00};
   load(&cpu, program);
   run(&cpu);
-  TEST_ASSERT_EQUAL(cpu.control.a, 0x55);
+  TEST_ASSERT_EQUAL(0x55, cpu.control.a);
 }
 
 void test_0xb9(void) {
@@ -64,7 +64,7 @@ void test_0xb9(void) {
   uint8_t program[4] = {0xB9, 0x88, 0x0F, 0x00};
   load(&cpu, program);
   run(&cpu);
-  TEST_ASSERT_EQUAL(cpu.control.a, 0x55);
+  TEST_ASSERT_EQUAL(0x55, cpu.control.a);
 }
 
 void test_0xaa(void) {
@@ -73,7 +73,7 @@ void test_0xaa(void) {
   uint8_t program[2] = {0xAA, 0x00};
   load(&cpu, program);
   run(&cpu);
-  TEST_ASSERT_EQUAL(cpu.control.x, 10);
+  TEST_ASSERT_EQUAL(10, cpu.control.x);
 }
 
 int main(void) {

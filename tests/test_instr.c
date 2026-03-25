@@ -28,6 +28,15 @@ void test_0xa5(void) {
   TEST_ASSERT_EQUAL(cpu.control.a, 0x55);
 }
 
+void test_0xad(void) {
+  CPU cpu = init_cpu();
+  mem_write(&cpu.control, 0x0C22, 0x55);
+  uint8_t program[4] = {0xAD, 0x22, 0x0C, 0x00};
+  load(&cpu, program);
+  run(&cpu);
+  TEST_ASSERT_EQUAL(cpu.control.a, 0x55);
+}
+
 void test_0xaa(void) {
   CPU cpu = init_cpu();
   cpu.control.a = 10;
@@ -41,6 +50,7 @@ int main(void) {
   UNITY_BEGIN();
   RUN_TEST(test_0xa9);
   RUN_TEST(test_0xa5);
+  RUN_TEST(test_0xad);
   RUN_TEST(test_0xaa);
   return UNITY_END();
 }

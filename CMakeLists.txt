@@ -27,7 +27,7 @@ target_include_directories(c6502 PRIVATE
 # --- Unity Testing Setup ---
 # =========================================================
 
-set(UNITY_DIR ${CMAKE_SOURCE_DIR}/unity)
+set(UNITY_DIR ${CMAKE_SOURCE_DIR}/extern/Unity/src)
 
 set(UNITY_SOURCES
     ${UNITY_DIR}/unity.c

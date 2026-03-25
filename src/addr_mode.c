@@ -34,8 +34,8 @@ uint16_t ABY(Control *c) {
 }
 
 uint16_t ZRX(Control *c) {
-  uint16_t val = c->memory[c->counter++];
-  return (val + c->x) % 256;
+  uint8_t base = c->memory[c->counter++];
+  return (base + c->x) & 0xFF;
 }
 
 uint16_t IMP(Control *c) { return 0; };

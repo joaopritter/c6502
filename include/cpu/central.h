@@ -5,7 +5,6 @@
 
 typedef struct {
   Control control;
-  Logic logic;
 } CPU;
 
 CPU init_cpu();

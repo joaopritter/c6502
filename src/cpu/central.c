@@ -13,7 +13,6 @@ CPU init_cpu() {
   cpu.control.sp = STACK_RESET;
   cpu.control.pc = 0x8000;
   cpu.control.status = 0b100100;
-  cpu.logic = init_logic();
   return cpu;
 }
 
@@ -56,7 +55,7 @@ void run(CPU *cpu) {
   while (cpu->control.running == 1) {
     value = mem_read(&cpu->control, cpu->control.pc);
     cpu->control.pc++;
-    inst = decode(&cpu->logic, value);
+    inst = decode(value);
     exec(cpu, inst);
   }
 };

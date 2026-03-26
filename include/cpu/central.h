@@ -3,8 +3,6 @@
 #include "cpu/control.h"
 #include "cpu/logic.h"
 
-#define STACK_RESET 0xfd
-
 typedef struct {
   Control control;
   Logic logic;

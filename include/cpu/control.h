@@ -2,6 +2,9 @@
 #define CONTROL_H
 #include <stdint.h>
 
+#define STACK_START 0x0100
+#define STACK_RESET 0xFF
+
 typedef struct {
   // Placeholder for interrupting CPU.
   // TODO: Handle "On" and "Off" correctly.

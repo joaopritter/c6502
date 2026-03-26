@@ -34,6 +34,10 @@ void assign_zero_flag(Control *c, uint8_t result);
 
 void assign_nz_flags(Control *c, uint8_t result);
 
+int check_break_flag(Control *c);
+
+void assign_break_flag(Control *c, uint8_t is_break);
+
 int check_carry_flag(Control *c);
 
 void assign_carry_flag(Control *c, uint8_t is_carry);

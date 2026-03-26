@@ -10,6 +10,18 @@ void LDA(Control *c, uint16_t addr) {
   assign_nz_flags(c, c->a);
 };
 
+void LDX(Control *c, uint16_t addr) {
+  uint8_t param = c->memory[addr];
+  c->x = param;
+  assign_nz_flags(c, c->x);
+}
+
+void LDY(Control *c, uint16_t addr) {
+  uint8_t param = c->memory[addr];
+  c->y = param;
+  assign_nz_flags(c, c->y);
+}
+
 void TAX(Control *c, uint16_t addr) {
   c->x = c->a;
   assign_nz_flags(c, c->x);
@@ -31,6 +43,12 @@ void PLA(Control *c, uint16_t addr) {
   c->a = val;
   assign_nz_flags(c, val);
 }
+
+void STA(Control *c, uint16_t addr) { mem_write(c, addr, c->a); }
+
+void STX(Control *c, uint16_t addr) { mem_write(c, addr, c->x); }
+
+void STY(Control *c, uint16_t addr) { mem_write(c, addr, c->y); }
 
 void BRK(Control *c, uint16_t addr) { c->running = 0; };
 

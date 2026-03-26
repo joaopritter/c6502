@@ -4,8 +4,14 @@
 #include "cpu/control.h"
 #include <stdint.h>
 
-// Loads a memory value into the accumulator.
+// Loads a value into the accumulator.
 void LDA(Control *c, uint16_t addr);
+
+// Loads a value into X.
+void LDX(Control *c, uint16_t addr);
+
+// Loads a value into X.
+void LDY(Control *c, uint16_t addr);
 
 // Copies the accumulator value to the X register.
 void TAX(Control *c, uint16_t addr);
@@ -21,6 +27,15 @@ void PLA(Control *c, uint16_t addr);
 
 //
 void TXS(Control *c, uint16_t addr);
+
+// Store value of A in memory.
+void STA(Control *c, uint16_t addr);
+
+// Store value of X in memory.
+void STX(Control *c, uint16_t addr);
+
+// Store value of Y in memory.
+void STY(Control *c, uint16_t addr);
 
 // Triggers an interrupt request (IRQ).
 // TODO: Proper IRQ handling.

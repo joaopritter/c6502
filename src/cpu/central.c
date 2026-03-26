@@ -6,6 +6,13 @@
 
 CPU init_cpu() {
   CPU cpu = {0};
+
+  cpu.control.a = 0;
+  cpu.control.x = 0;
+  cpu.control.y = 0;
+  cpu.control.sp = STACK_RESET;
+  cpu.control.pc = 0x8000;
+  cpu.control.status = 0b100100;
   cpu.logic = init_logic();
   return cpu;
 }
@@ -14,9 +21,9 @@ void reset(CPU *cpu) {
   cpu->control.a = 0;
   cpu->control.x = 0;
   cpu->control.y = 0;
-  cpu->control.stack_pointer = STACK_RESET;
-  cpu->control.counter = 0x8000;
-  cpu->control.flag = 0b100100;
+  cpu->control.sp = STACK_RESET;
+  cpu->control.pc = 0x8000;
+  cpu->control.status = 0b100100;
 }
 
 void load(CPU *cpu, uint8_t program[]) {
@@ -29,15 +36,15 @@ void load(CPU *cpu, uint8_t program[]) {
       finish_loading = 1;
     }
   }
-  cpu->control.counter = 0x8000;
+  cpu->control.pc = 0x8000;
 }
 
 void exec(CPU *cpu, OPCode c) {
-  uint8_t program_counter_state = cpu->control.counter;
+  uint8_t program_counter_state = cpu->control.pc;
   uint16_t addr = c.mode(&cpu->control);
   c.inst(&cpu->control, addr);
-  if (cpu->control.counter == program_counter_state) {
-    cpu->control.counter += (c.size - 1);
+  if (cpu->control.pc == program_counter_state) {
+    cpu->control.pc += (c.size - 1);
   }
 };
 
@@ -47,8 +54,8 @@ void run(CPU *cpu) {
 
   cpu->control.running = 1;
   while (cpu->control.running == 1) {
-    value = mem_read(&cpu->control, cpu->control.counter);
-    cpu->control.counter++;
+    value = mem_read(&cpu->control, cpu->control.pc);
+    cpu->control.pc++;
     inst = decode(&cpu->logic, value);
     exec(cpu, inst);
   }

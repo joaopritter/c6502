@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(BUILD_TESTING "Build unit tests" OFF)
+option(ENABLE_COVERAGE "Enable coverage instrumentation" OFF)
 
 set(LIB_SOURCES
     src/addr_mode.c
@@ -57,4 +58,39 @@ if(BUILD_TESTING)
         DEPENDS c6502_tests
         COMMENT "Running c6502 unit tests manually..."
     )
+
+  if(ENABLE_COVERAGE)
+    message(STATUS "Coverage instrumentation enabled")
+
+    target_compile_options(c6502_tests PRIVATE -O0 -g --coverage)
+    target_link_options(c6502_tests PRIVATE --coverage)
+
+    find_program(LCOV_EXEC lcov)
+    find_program(GENHTML_EXEC genhtml)
+
+    if(NOT LCOV_EXEC OR NOT GENHTML_EXEC)
+      message(WARNING "lcov/genhtml not found, coverage target will not work")
+    else()
+      add_custom_target(coverage
+          COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
+          --target c6502_tests
+
+          COMMAND $<TARGET_FILE:c6502_tests>
+          COMMAND ${LCOV_EXEC} --capture --directory ${CMAKE_BINARY_DIR}
+          --base-directory ${CMAKE_SOURCE_DIR} --output-file
+          ${CMAKE_BINARY_DIR}/coverage.info --ignore-errors source
+
+          COMMAND ${LCOV_EXEC} --remove ${CMAKE_BINARY_DIR}/coverage.info
+          '${CMAKE_SOURCE_DIR}/extern/*' --output-file
+          ${CMAKE_BINARY_DIR}/coverage.info --ignore-errors unused
+
+          COMMAND ${GENHTML_EXEC} ${CMAKE_BINARY_DIR}/coverage.info
+          --output-directory ${CMAKE_BINARY_DIR}/coverage_report
+
+          COMMENT "Building tests, running them, and generating coverage report"
+
+          DEPENDS c6502_tests
+      )
+    endif()
+  endif()
 endif()

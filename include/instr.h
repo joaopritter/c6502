@@ -10,6 +10,18 @@ void LDA(Control *c, uint16_t addr);
 // Copies the accumulator value to the X register.
 void TAX(Control *c, uint16_t addr);
 
+// Stores de value of A to the current stack position.
+void PHA(Control *c, uint16_t addr);
+
+// Stores the status flags to the current stack position.
+void PHP(Control *c, uint16_t addr);
+
+// Pops the value from stack and assign it to A.
+void PLA(Control *c, uint16_t addr);
+
+//
+void TXS(Control *c, uint16_t addr);
+
 // Triggers an interrupt request (IRQ).
 // TODO: Proper IRQ handling.
 void BRK(Control *c, uint16_t addr);

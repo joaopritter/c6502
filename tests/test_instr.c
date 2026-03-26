@@ -67,6 +67,30 @@ void test_0xb9(void) {
   TEST_ASSERT_EQUAL(0x55, cpu.control.a);
 }
 
+void test_0x48(void) {
+  CPU cpu = init_cpu();
+  uint8_t program[4] = {0xA9, 0x10, 0x48, 0x00};
+  load(&cpu, program);
+  run(&cpu);
+  TEST_ASSERT_EQUAL(0x10, cpu.control.memory[0x01FF]);
+}
+
+void test_0x08(void) {
+  CPU cpu = init_cpu();
+  uint8_t program[2] = {0x08, 0x00};
+  load(&cpu, program);
+  run(&cpu);
+  TEST_ASSERT_EQUAL(0b00110100, cpu.control.memory[0x01FF]);
+}
+
+void test_0x68(void) {
+  CPU cpu = init_cpu();
+  uint8_t program[3] = {0x08, 0x68, 0x00};
+  load(&cpu, program);
+  run(&cpu);
+  TEST_ASSERT_EQUAL(0b00110100, cpu.control.a);
+}
+
 void test_0xaa(void) {
   CPU cpu = init_cpu();
   cpu.control.a = 10;
@@ -84,6 +108,9 @@ int main(void) {
   RUN_TEST(test_0xad);
   RUN_TEST(test_0xbd);
   RUN_TEST(test_0xb9);
+  RUN_TEST(test_0x48);
+  RUN_TEST(test_0x08);
+  RUN_TEST(test_0x68);
   RUN_TEST(test_0xaa);
   return UNITY_END();
 }

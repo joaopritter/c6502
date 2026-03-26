@@ -41,6 +41,12 @@ Logic init_logic() {
 
   MAKE_INSTR(0xAA, TAX, IMP, 1, 2);
 
+  MAKE_INSTR(0x48, PHA, IMP, 1, 3);
+
+  MAKE_INSTR(0x08, PHP, IMP, 1, 3);
+
+  MAKE_INSTR(0x68, PLA, IMP, 1, 4);
+
   MAKE_INSTR(0x00, BRK, IMM, 1, 2);
 
 #undef MAKE_INSTR

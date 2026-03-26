@@ -27,32 +27,32 @@ target_include_directories(c6502 PRIVATE
 )
 
 if(BUILD_TESTING)
-    set(UNITY_DIR ${CMAKE_SOURCE_DIR}/extern/Unity/src)
+  set(UNITY_DIR ${CMAKE_SOURCE_DIR}/extern/Unity/src)
 
-    set(UNITY_SOURCES
+  set(UNITY_SOURCES
         ${UNITY_DIR}/unity.c
     )
 
-    set(TEST_SOURCES
+  set(TEST_SOURCES
         tests/test_instr.c
     )
 
-    add_executable(c6502_tests
+  add_executable(c6502_tests
         ${UNITY_SOURCES}
         ${TEST_SOURCES}
         ${LIB_SOURCES}
     )
 
-    target_include_directories(c6502_tests PRIVATE
+  target_include_directories(c6502_tests PRIVATE
         include
         include/cpu
         ${UNITY_DIR}
     )
 
-    enable_testing()
-    add_test(NAME c6502_tests COMMAND $<TARGET_FILE:c6502_tests>)
+  enable_testing()
+  add_test(NAME c6502_tests COMMAND $<TARGET_FILE:c6502_tests>)
 
-    add_custom_target(run_tests
+  add_custom_target(run_tests
         COMMAND $<TARGET_FILE:c6502_tests>
         DEPENDS c6502_tests
         COMMENT "Running c6502 unit tests manually..."

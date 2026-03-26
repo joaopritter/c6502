@@ -1,8 +1,8 @@
 #include <stdint.h>
 
-#include "cpu/central.h"
-#include "cpu/control.h"
-#include "cpu/logic.h"
+#include "central.h"
+#include "control.h"
+#include "logic.h"
 
 CPU init_cpu() {
   CPU cpu = {0};

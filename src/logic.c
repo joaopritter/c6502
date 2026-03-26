@@ -2,7 +2,7 @@
 #include <string.h>
 
 #include "addr_mode.h"
-#include "cpu/logic.h"
+#include "logic.h"
 #include "instr.h"
 
 OPCode decode(uint8_t code) {

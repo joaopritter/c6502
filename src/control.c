@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-#include "cpu/control.h"
+#include "control.h"
 
 uint8_t mem_read(Control *c, uint16_t addr) {
   uint8_t val = c->memory[addr];

@@ -2,7 +2,7 @@
 #define FLAGS_H
 #include <stdint.h>
 
-#include "cpu/control.h"
+#include "control.h"
 
 #define NEGATIVE_FLAG 0b10000000
 #define OVERFLOW_FLAG 0b01000000

@@ -1,7 +1,7 @@
 #include <stdint.h>
 
-#include "cpu/control.h"
-#include "cpu/flags.h"
+#include "control.h"
+#include "flags.h"
 #include "instr.h"
 
 void LDA(Control *c, uint16_t addr) {

@@ -1,4 +1,3 @@
-#include "cpu/flags.h"
 #include "flags.h"
 
 int check_flag(Control *c, int flag) { return (c->status & flag) != 0; }

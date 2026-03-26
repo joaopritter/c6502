@@ -11,10 +11,10 @@ option(ENABLE_COVERAGE "Enable coverage instrumentation" OFF)
 set(LIB_SOURCES
     src/addr_mode.c
     src/instr.c
-    src/cpu/central.c
-    src/cpu/control.c
-    src/cpu/logic.c
-    src/cpu/flags.c
+    src/central.c
+    src/control.c
+    src/logic.c
+    src/flags.c
 )
 
 add_executable(c6502
@@ -24,7 +24,6 @@ add_executable(c6502
 
 target_include_directories(c6502 PRIVATE
     include
-    include/cpu
 )
 
 if(BUILD_TESTING)

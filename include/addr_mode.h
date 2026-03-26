@@ -1,7 +1,7 @@
 #ifndef ADDR_MODE_H
 #define ADDR_MODE_H
 
-#include "cpu/control.h"
+#include "control.h"
 #include <stdint.h>
 
 // Accumulator:

@@ -1,7 +1,7 @@
 #ifndef INSTR_H
 #define INSTR_H
 
-#include "cpu/control.h"
+#include "control.h"
 #include <stdint.h>
 
 // Triggers an interrupt request (IRQ).

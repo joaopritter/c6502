@@ -1,7 +1,7 @@
 #ifndef CENTRAL_H
 #define CENTRAL_H
-#include "cpu/control.h"
-#include "cpu/logic.h"
+#include "control.h"
+#include "logic.h"
 
 typedef struct {
   Control control;

@@ -1,5 +1,5 @@
 #include "addr_mode.h"
-#include "cpu/control.h"
+#include "control.h"
 #include <stdint.h>
 
 uint16_t ACC(Control *c) { return 0; }

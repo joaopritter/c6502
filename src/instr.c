@@ -4,32 +4,32 @@
 #include "flags.h"
 #include "instr.h"
 
-void LDA(Control *c, uint16_t addr) {
+void LDA(C6502 *c, uint16_t addr) {
   uint8_t param = c->memory[addr];
   c->a = param;
   assign_nz_flags(c, c->a);
 };
 
-void LDX(Control *c, uint16_t addr) {
+void LDX(C6502 *c, uint16_t addr) {
   uint8_t param = c->memory[addr];
   c->x = param;
   assign_nz_flags(c, c->x);
 }
 
-void LDY(Control *c, uint16_t addr) {
+void LDY(C6502 *c, uint16_t addr) {
   uint8_t param = c->memory[addr];
   c->y = param;
   assign_nz_flags(c, c->y);
 }
 
-void TAX(Control *c, uint16_t addr) {
+void TAX(C6502 *c, uint16_t addr) {
   c->x = c->a;
   assign_nz_flags(c, c->x);
 }
 
-void PHA(Control *c, uint16_t addr) { stack_push(c, c->a); }
+void PHA(C6502 *c, uint16_t addr) { stack_push(c, c->a); }
 
-void PHP(Control *c, uint16_t addr) {
+void PHP(C6502 *c, uint16_t addr) {
   uint8_t flags = c->status;
   // The B flag and extra bit are both pushed as 1.
   flags |= BREAK_FLAG;
@@ -38,18 +38,18 @@ void PHP(Control *c, uint16_t addr) {
   assign_break_flag(c, 1);
 }
 
-void PLA(Control *c, uint16_t addr) {
+void PLA(C6502 *c, uint16_t addr) {
   uint8_t val = stack_pop(c);
   c->a = val;
   assign_nz_flags(c, val);
 }
 
-void STA(Control *c, uint16_t addr) { mem_write(c, addr, c->a); }
+void STA(C6502 *c, uint16_t addr) { mem_write(c, addr, c->a); }
 
-void STX(Control *c, uint16_t addr) { mem_write(c, addr, c->x); }
+void STX(C6502 *c, uint16_t addr) { mem_write(c, addr, c->x); }
 
-void STY(Control *c, uint16_t addr) { mem_write(c, addr, c->y); }
+void STY(C6502 *c, uint16_t addr) { mem_write(c, addr, c->y); }
 
-void BRK(Control *c, uint16_t addr) { c->running = 0; };
+void BRK(C6502 *c, uint16_t addr) { c->running = 0; };
 
-void ILL(Control *c, uint16_t addr) { c->running = 0; };
+void ILL(C6502 *c, uint16_t addr) { c->running = 0; };

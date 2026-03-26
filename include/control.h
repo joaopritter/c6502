@@ -2,6 +2,8 @@
 #define CONTROL_H
 #include <stdint.h>
 
+#include "logic.h"
+
 #define STACK_START 0x0100
 #define STACK_RESET 0xFF
 
@@ -121,17 +123,27 @@ typedef struct {
   //
   // Tracks the current position in the program execution.
   uint16_t pc;
-} Control;
+} C6502;
 
-uint8_t mem_read(Control *c, uint16_t addr);
+uint8_t mem_read(C6502 *c, uint16_t addr);
 
-void mem_write(Control *c, uint16_t addr, uint8_t value);
+void mem_write(C6502 *c, uint16_t addr, uint8_t value);
 
 uint16_t stack_address(uint8_t sp);
 
-void stack_push(Control *c, uint8_t value);
+void stack_push(C6502 *c, uint8_t value);
 
-uint8_t stack_pop(Control *c);
+uint8_t stack_pop(C6502 *c);
+
+C6502 init_cpu();
+
+void reset(C6502 *cpu);
+
+void load(C6502 *cpu, uint8_t program[]);
+
+void exec(C6502 *cpu, OPCode c);
+
+void run(C6502 *cpu);
 
 // Source: https://www.nesdev.org/wiki/
 #endif

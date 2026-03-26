@@ -1,4 +1,4 @@
-#include "central.h"
+#include "control.h"
 #include <stdint.h>
 #include <stdio.h>
 
@@ -9,10 +9,10 @@
 
 int main(void) {
   uint8_t program[3] = {0xA9, 0xC0, 0x00};
-  CPU cpu = init_cpu();
+  C6502 cpu = init_cpu();
   load(&cpu, program);
-  printf("[CPU] A: %d | PC: %d\n", cpu.control.a, cpu.control.pc);
+  printf("[CPU] A: %d | PC: %d\n", cpu.a, cpu.pc);
   run(&cpu);
-  printf("[CPU] A: %d | PC: %d\n", cpu.control.a, cpu.control.pc);
+  printf("[CPU] A: %d | PC: %d\n", cpu.a, cpu.pc);
   return 0;
 }

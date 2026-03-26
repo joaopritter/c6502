@@ -127,5 +127,11 @@ uint8_t mem_read(Control *c, uint16_t addr);
 
 void mem_write(Control *c, uint16_t addr, uint8_t value);
 
+uint16_t stack_address(uint8_t sp);
+
+void stack_push(Control *c, uint8_t value);
+
+uint8_t stack_pop(Control *c);
+
 // Source: https://www.nesdev.org/wiki/
 #endif

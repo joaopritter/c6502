@@ -62,22 +62,13 @@ void load(C6502 *cpu, uint8_t program[]) {
   cpu->pc = 0x8000;
 }
 
-void exec(C6502 *cpu, OPCode c) {
-  uint8_t program_counter_state = cpu->pc;
-  uint16_t addr = c.mode(&cpu);
-  c.inst(cpu, addr);
-  if (cpu->pc == program_counter_state) {
-    cpu->pc += (c.size - 1);
-  }
-};
-
 void run(C6502 *cpu) {
   uint8_t value;
   OPCode inst;
 
   cpu->running = 1;
   while (cpu->running == 1) {
-    value = mem_read(&cpu, cpu->pc);
+    value = mem_read(cpu, cpu->pc);
     cpu->pc++;
     inst = decode(value);
     exec(cpu, inst);

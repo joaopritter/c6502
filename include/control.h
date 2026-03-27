@@ -2,8 +2,6 @@
 #define CONTROL_H
 #include <stdint.h>
 
-#include "logic.h"
-
 #define STACK_START 0x0100
 #define STACK_RESET 0xFF
 
@@ -140,8 +138,6 @@ C6502 init_cpu();
 void reset(C6502 *cpu);
 
 void load(C6502 *cpu, uint8_t program[]);
-
-void exec(C6502 *cpu, OPCode c);
 
 void run(C6502 *cpu);
 

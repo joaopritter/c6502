@@ -21,11 +21,7 @@ void stack_push(C6502 *c, uint8_t value) {
 
 uint8_t stack_pop(C6502 *c) {
   c->sp++;
-  uint16_t addr = stack_address(c->sp);
-  uint8_t value = c->memory[addr];
-  // Eliminate garbage from previous stack address after retrieving.
-  c->memory[addr] = 0;
-  return value;
+  return c->memory[stack_address(c->sp)];
 }
 
 C6502 init_cpu() {

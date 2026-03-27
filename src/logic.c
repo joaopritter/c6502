@@ -24,7 +24,60 @@ void exec(C6502 *cpu, OPCode c) {
 const OPCode instr_table[256] = {
     [0 ... 255] = {ILL, IMP, "ILL", "IMP", 1, 1},
 
+    OP(0x30, BMI, REL, 2, 3),
+
+    OP(0xD0, BNE, REL, 2, 3),
+
+    OP(0x10, BPL, REL, 2, 3),
+
     OP(0x00, BRK, IMM, 1, 2),
+
+    OP(0x50, BVC, REL, 2, 3),
+
+    OP(0x70, BVS, REL, 2, 3),
+
+    OP(0x18, CLC, IMP, 1, 2),
+
+    OP(0xD8, CLD, IMP, 1, 2),
+
+    OP(0x58, CLI, IMP, 1, 2),
+
+    OP(0xB8, CLV, IMP, 1, 2),
+
+    OP(0xC9, CMP, IMM, 2, 2),
+    OP(0xC5, CMP, ZRP, 2, 3),
+    OP(0xD5, CMP, ZRX, 2, 4),
+    OP(0xCD, CMP, ABS, 3, 4),
+    OP(0xDD, CMP, ABX, 3, 4),
+    OP(0xD9, CMP, ABY, 3, 4),
+    OP(0xC1, CMP, IDX, 2, 6),
+    OP(0xD1, CMP, IDY, 2, 5),
+
+    OP(0xE0, CPX, IMM, 2, 2),
+    OP(0xE4, CPX, ZRP, 2, 3),
+    OP(0xEC, CPX, ABS, 3, 4),
+
+    OP(0xC0, CPY, IMM, 2, 2),
+    OP(0xC4, CPY, ZRP, 2, 3),
+    OP(0xCC, CPY, ABS, 3, 4),
+
+    OP(0xC6, DEC, ZRP, 2, 5),
+    OP(0xD6, DEC, ZRX, 2, 6),
+    OP(0xCE, DEC, ABS, 3, 6),
+    OP(0xDE, DEC, ABX, 3, 7),
+
+    OP(0xCA, DEX, IMP, 1, 2),
+
+    OP(0x88, DEY, IMP, 1, 2),
+
+    OP(0x49, EOR, IMM, 2, 2),
+    OP(0x45, EOR, ZRP, 2, 3),
+    OP(0x55, EOR, ZRX, 2, 4),
+    OP(0x4D, EOR, ABS, 3, 4),
+    OP(0x5D, EOR, ABX, 3, 4),
+    OP(0x59, EOR, ABY, 4, 4),
+    OP(0x41, EOR, IDX, 2, 6),
+    OP(0x51, EOR, IDY, 2, 5),
 
     OP(0xE6, INC, ZRP, 2, 5),
     OP(0xF6, INC, ZRX, 2, 6),

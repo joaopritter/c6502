@@ -4,9 +4,57 @@
 #include "control.h"
 #include <stdint.h>
 
+// Branch if negative flag is set.
+void BMI(C6502 *c, uint16_t addr);
+
+// Branch if zero flag is clear.
+void BNE(C6502 *c, uint16_t addr);
+
+// Branch to rel address if the negative flag is clear.
+void BPL(C6502 *c, uint16_t addr);
+
 // Triggers an interrupt request (IRQ).
 // TODO: Proper IRQ handling.
 void BRK(C6502 *c, uint16_t addr);
+
+// Branch if overflow clear.
+void BVC(C6502 *c, uint16_t addr);
+
+// Branch if overflow set.
+void BVS(C6502 *c, uint16_t addr);
+
+// Clear carry flag.
+void CLC(C6502 *c, uint16_t addr);
+
+// Clear decinal flag.
+void CLD(C6502 *c, uint16_t addr);
+
+// Clear interrupt disable flag.
+void CLI(C6502 *c, uint16_t addr);
+
+// Clear overflow flag.
+void CLV(C6502 *c, uint16_t addr);
+
+// Compares A to a memory value, setting flags as appropriate.
+void CMP(C6502 *c, uint16_t addr);
+
+// Compares X to a memory value, setting flags as appropriate.
+void CPX(C6502 *c, uint16_t addr);
+
+// Compares Y to a memory value, setting flags as appropriate.
+void CPY(C6502 *c, uint16_t addr);
+
+// Increment +1 to a value in memory.
+void DEC(C6502 *c, uint16_t addr);
+
+// Decrement -1 to value in register X.
+void DEX(C6502 *c, uint16_t addr);
+
+// Decrement -1 to value in register Y.
+void DEY(C6502 *c, uint16_t addr);
+
+// Exclusive-ORs a memory value and the accumulator.
+void EOR(C6502 *c, uint16_t addr);
 
 // Increment +1 to a value in memory.
 void INC(C6502 *c, uint16_t addr);

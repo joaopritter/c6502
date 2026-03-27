@@ -4,10 +4,89 @@
 #include "flags.h"
 #include "instr.h"
 
+void BMI(C6502 *c, uint16_t addr) {
+  if (check_negative_flag(c))
+    c->pc = addr;
+}
+
+void BNE(C6502 *c, uint16_t addr) {
+  if (!check_zero_flag(c))
+    c->pc = addr;
+}
+
+void BPL(C6502 *c, uint16_t addr) {
+  if (!check_negative_flag(c))
+    c->pc = addr;
+}
+
 void BRK(C6502 *c, uint16_t addr) { c->running = 0; };
+
+void BVC(C6502 *c, uint16_t addr) {
+  if (!check_overflow_flag(c))
+    c->pc = addr;
+}
+
+void BVS(C6502 *c, uint16_t addr) {
+  if (check_overflow_flag(c))
+    c->pc = addr;
+}
+
+void CLC(C6502 *c, uint16_t addr) { assign_carry_flag(c, 0); }
+
+void CLD(C6502 *c, uint16_t addr) { assign_decimal_flag(c, 0); }
+
+void CLI(C6502 *c, uint16_t addr) { assign_interrupt_disable_flag(c, 0); }
+
+void CLV(C6502 *c, uint16_t addr) { assign_overflow_flag(c, 0); }
+
+void CMP(C6502 *c, uint16_t addr) {
+  uint8_t val = c->memory[addr];
+  assign_carry_flag(c, c->a >= val);
+  assign_nz_flags(c, (uint8_t)(c->a - val));
+}
+
+void CPX(C6502 *c, uint16_t addr) {
+  uint8_t val = c->memory[addr];
+  assign_carry_flag(c, c->x >= val);
+  assign_nz_flags(c, (uint8_t)(c->x - val));
+}
+
+void CPY(C6502 *c, uint16_t addr) {
+  uint8_t val = c->memory[addr];
+  assign_carry_flag(c, c->y >= val);
+  assign_nz_flags(c, (uint8_t)(c->y - val));
+}
+
+void DEC(C6502 *c, uint16_t addr) {
+  uint8_t val = c->memory[addr];
+  // This is a read-modify-write instruction, meaning that it first writes the
+  // original value back to memory before the modified value. This extra write
+  // can matter if targeting a hardware register.
+  mem_write(c, addr, val);
+  val = (val - 1) & 0xFF;
+  c->memory[addr] = val;
+  assign_nz_flags(c, c->x);
+}
+
+void DEX(C6502 *c, uint16_t addr) {
+  c->x = (c->x - 1) & 0xFF;
+  assign_nz_flags(c, c->x);
+}
+
+void DEY(C6502 *c, uint16_t addr) {
+  c->y = (c->y - 1) & 0xFF;
+  assign_nz_flags(c, c->y);
+}
+
+void EOR(C6502 *c, uint16_t addr) {
+  uint8_t param = c->memory[addr];
+  c->a = c->a ^ param;
+  assign_nz_flags(c, c->a);
+}
 
 void INC(C6502 *c, uint16_t addr) {
   uint8_t val = c->memory[addr];
+  mem_write(c, addr, val);
   val = (val + 1) & 0xFF;
   c->memory[addr] = val;
   assign_nz_flags(c, c->x);

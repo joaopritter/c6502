@@ -15,14 +15,39 @@ void exec(C6502 *cpu, OPCode c) {
   }
 };
 
-#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Winitializer-overrides"
 
 #define OP(OPCODE, CODE, MODE, SIZE, CYCLES)                                   \
   [OPCODE] = {CODE, MODE, #CODE, #MODE, SIZE, CYCLES}
-
 const OPCode instr_table[256] = {
     [0 ... 255] = {ILL, IMP, "ILL", "IMP", 1, 1},
+
+    OP(0x69, ADC, IMM, 2, 2),
+    OP(0x65, ADC, ZRP, 2, 3),
+    OP(0x75, ADC, ZRX, 2, 4),
+    OP(0x6D, ADC, ABS, 3, 4),
+    OP(0x7D, ADC, ABX, 3, 4),
+    OP(0x79, ADC, ABY, 3, 4),
+    OP(0x61, ADC, IDX, 2, 6),
+    OP(0x71, ADC, IDY, 2, 5),
+
+    OP(0x29, AND, IMM, 2, 2),
+    OP(0x25, AND, ZRP, 2, 3),
+    OP(0x35, AND, ZRX, 2, 4),
+    OP(0x2D, AND, ABS, 3, 4),
+    OP(0x3D, AND, ABX, 3, 4),
+    OP(0x39, AND, ABY, 3, 4),
+    OP(0x21, AND, IDX, 2, 6),
+    OP(0x31, AND, IDY, 2, 5),
+
+    OP(0x90, BCC, REL, 2, 3),
+
+    OP(0xB0, BCS, REL, 2, 3),
+
+    OP(0xF0, BEQ, REL, 2, 3),
+
+    OP(0x2C, BIT, ABS, 3, 4),
+    OP(0x24, BIT, ZRP, 2, 3),
 
     OP(0x30, BMI, REL, 2, 3),
 
@@ -171,5 +196,3 @@ const OPCode instr_table[256] = {
 
 #undef OP
 };
-
-#pragma GCC diagnostic pop

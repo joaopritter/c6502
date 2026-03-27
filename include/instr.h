@@ -4,6 +4,24 @@
 #include "control.h"
 #include <stdint.h>
 
+// Adds the carry flag and a memory value to the accumulator.
+void ADC(C6502 *c, uint16_t addr);
+
+// Bitwise and between memory value and accumulator.
+void AND(C6502 *c, uint16_t addr);
+
+// Branch if carry flag is clear.
+void BCC(C6502 *c, uint16_t addr);
+
+// Branch if carry flag is set.
+void BCS(C6502 *c, uint16_t addr);
+
+// Branch if zero flag is set.
+void BEQ(C6502 *c, uint16_t addr);
+
+// Bit test between memory value and accumulator.
+void BIT(C6502 *c, uint16_t addr);
+
 // Branch if negative flag is set.
 void BMI(C6502 *c, uint16_t addr);
 

@@ -4,6 +4,49 @@
 #include "flags.h"
 #include "instr.h"
 
+void ADC(C6502 *c, uint16_t addr) {
+  uint8_t mem = mem_read(c, addr);
+  uint16_t res = c->a + mem + check_carry_flag(c);
+  assign_carry_flag(c, res > 0xFF);
+
+  // If the result's sign is different from both A's and memory's, signed
+  // overflow (or underflow) occurred.
+  // Formula = (result ^ A) & (result ^ memory) & $80
+  int is_overflow = (~(c->a ^ mem) & (c->a ^ res)) & 0x80;
+  assign_overflow_flag(c, is_overflow);
+
+  c->a = (uint8_t)res & 0xFF;
+  assign_nz_flags(c, c->a);
+}
+
+void AND(C6502 *c, uint16_t addr) {
+  c->a = c->a & mem_read(c, addr);
+  assign_nz_flags(c, c->a);
+}
+
+void BCC(C6502 *c, uint16_t addr) {
+  if (!check_carry_flag(c))
+    c->pc = addr;
+}
+
+void BCS(C6502 *c, uint16_t addr) {
+  if (check_carry_flag(c))
+    c->pc = addr;
+}
+
+void BEQ(C6502 *c, uint16_t addr) {
+  if (check_zero_flag(c))
+    c->pc = addr;
+}
+
+void BIT(C6502 *c, uint16_t addr) {
+  uint8_t val = mem_read(c, addr);
+  uint8_t test = c->a & val;
+
+  assign_overflow_flag(c, val & 0x40); // Bit 6 masking.
+  assign_nz_flags(c, val);
+}
+
 void BMI(C6502 *c, uint16_t addr) {
   if (check_negative_flag(c))
     c->pc = addr;

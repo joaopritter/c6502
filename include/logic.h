@@ -2,9 +2,7 @@
 #define LOGIC_H
 #include <stdint.h>
 
-#include "addr_mode.h"
 #include "control.h"
-#include "instr.h"
 
 // Method used to represent addressing mode behavior returning the address of
 // the value to be used by the instruction.

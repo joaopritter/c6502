@@ -26,6 +26,12 @@ void PHP(C6502 *c, uint16_t addr);
 // Pops the value from stack and assign it to A.
 void PLA(C6502 *c, uint16_t addr);
 
+// Set decimal flag.
+void SED(C6502 *c, uint16_t addr);
+
+// Set interrupt disable flag.
+void SEI(C6502 *c, uint16_t addr);
+
 // Store value of A in memory.
 void STA(C6502 *c, uint16_t addr);
 
@@ -37,6 +43,21 @@ void STY(C6502 *c, uint16_t addr);
 
 // Copies the accumulator value to the X register.
 void TAX(C6502 *c, uint16_t addr);
+
+// Copies the accumulator value to the Y register.
+void TAY(C6502 *c, uint16_t addr);
+
+// Copies the stack pointer value to the X register.
+void TSX(C6502 *c, uint16_t addr);
+
+// Copies the X register value to the accumulator.
+void TXA(C6502 *c, uint16_t addr);
+
+// Copies the X register value to the stack pointer.
+void TXS(C6502 *c, uint16_t addr);
+
+// Copies the Y register value to the accumulator.
+void TYA(C6502 *c, uint16_t addr);
 
 // Dummy instruction that does nothing.
 void ILL(C6502 *c, uint16_t addr);

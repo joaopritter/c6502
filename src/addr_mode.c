@@ -63,7 +63,7 @@ uint16_t IDY(C6502 *c) {
 }
 
 uint16_t REL(C6502 *c) {
-  uint8_t arg = c->memory[c->pc++];
+  int8_t arg = (int8_t)mem_read(c, c->pc++);
   return (uint16_t)(c->pc + arg);
 }
 

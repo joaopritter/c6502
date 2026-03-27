@@ -11,7 +11,6 @@ option(ENABLE_COVERAGE "Enable coverage instrumentation" OFF)
 set(LIB_SOURCES
     src/addr_mode.c
     src/instr.c
-    src/central.c
     src/control.c
     src/logic.c
     src/flags.c
@@ -45,7 +44,6 @@ if(BUILD_TESTING)
 
   target_include_directories(c6502_tests PRIVATE
         include
-        include/cpu
         ${UNITY_DIR}
     )
 

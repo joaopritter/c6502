@@ -21,6 +21,14 @@ void assign_overflow_flag(C6502 *c, uint8_t is_overflow) {
   assign_flag(c, is_overflow, OVERFLOW_FLAG);
 }
 
+int check_interrupt_disable_flag(C6502 *c) {
+  return check_flag(c, INTERRUPT_DISABLE_FLAG);
+}
+
+void assign_interrupt_disable_flag(C6502 *c, uint8_t set) {
+  assign_flag(c, set, INTERRUPT_DISABLE_FLAG);
+}
+
 int check_zero_flag(C6502 *c) { return check_flag(c, ZERO_FLAG); }
 
 void assign_zero_flag(C6502 *c, uint8_t result) {

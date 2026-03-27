@@ -38,6 +38,12 @@ void assign_break_flag(C6502 *c, uint8_t is_break) {
   assign_flag(c, is_break, BREAK_FLAG);
 }
 
+int check_decimal_flag(C6502 *c) { return check_flag(c, DECIMAL_FLAG); }
+
+void assign_decimal_flag(C6502 *c, uint8_t is_enable) {
+  assign_flag(c, is_enable, DECIMAL_FLAG);
+}
+
 int check_carry_flag(C6502 *c) { return check_flag(c, CARRY_FLAG); }
 
 void assign_carry_flag(C6502 *c, uint8_t is_carry) {

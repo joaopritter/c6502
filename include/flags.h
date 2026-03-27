@@ -39,6 +39,10 @@ int check_break_flag(C6502 *c);
 
 void assign_break_flag(C6502 *c, uint8_t is_break);
 
+int check_decimal_flag(C6502 *c);
+
+void assign_decimal_flag(C6502 *c, uint8_t is_enable);
+
 int check_carry_flag(C6502 *c);
 
 void assign_carry_flag(C6502 *c, uint8_t is_carry);

@@ -1,7 +1,7 @@
 #include <stdint.h>
 
 #include "control.h"
-#include "logic.h"
+#include "opcode.h"
 
 uint8_t mem_read(C6502 *c, uint16_t addr) {
   uint8_t val = c->memory[addr];

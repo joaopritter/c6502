@@ -2,7 +2,7 @@
 
 #include "addr_mode.h"
 #include "instr.h"
-#include "logic.h"
+#include "opcode.h"
 
 OPCode decode(uint8_t code) { return instr_table[code]; }
 

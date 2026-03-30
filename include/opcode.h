@@ -1,5 +1,5 @@
-#ifndef LOGIC_H
-#define LOGIC_H
+#ifndef OPCODE_H
+#define OPCODE_H
 #include <stdint.h>
 
 #include "control.h"
@@ -41,4 +41,4 @@ extern const OPCode instr_table[256];
 // supported.
 OPCode decode(uint8_t code);
 void exec(C6502 *cpu, OPCode c);
-#endif // !LOGIC_H
+#endif // !OPCODE_H

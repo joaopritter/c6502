@@ -12,7 +12,7 @@ set(LIB_SOURCES
     src/addr_mode.c
     src/instr.c
     src/control.c
-    src/logic.c
+    src/opcode.c
     src/flags.c
 )
 

@@ -10,7 +10,7 @@ typedef uint16_t (*address_mode)(C6502 *c);
 
 // Method used to represent any cpu instruction receiving a 16bit address from
 // the address mode method.
-typedef void (*instruction)(C6502 *c, uint16_t addr);
+typedef void (*instruction)(C6502 *c, address_mode mode);
 
 // OP Codes represent and instruction to be executed by the CPU alongside the
 // addressing mode, one instruction can (and likely will) have multiple OPCodes.

@@ -8,8 +8,7 @@ OPCode decode(uint8_t code) { return instr_table[code]; }
 
 void exec(C6502 *cpu, OPCode c) {
   uint16_t program_counter_state = cpu->pc;
-  uint16_t addr = c.mode(cpu);
-  c.inst(cpu, addr);
+  c.inst(cpu, c.mode);
   if (cpu->pc == program_counter_state) {
     cpu->pc += (c.size - 1);
   }

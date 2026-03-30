@@ -83,31 +83,31 @@ void CLI(C6502 *c, uint16_t addr) { assign_interrupt_disable_flag(c, 0); }
 void CLV(C6502 *c, uint16_t addr) { assign_overflow_flag(c, 0); }
 
 void CMP(C6502 *c, uint16_t addr) {
-  uint8_t val = c->memory[addr];
+  uint8_t val = mem_read(c, addr);
   assign_carry_flag(c, c->a >= val);
   assign_nz_flags(c, (uint8_t)(c->a - val));
 }
 
 void CPX(C6502 *c, uint16_t addr) {
-  uint8_t val = c->memory[addr];
+  uint8_t val = mem_read(c, addr);
   assign_carry_flag(c, c->x >= val);
   assign_nz_flags(c, (uint8_t)(c->x - val));
 }
 
 void CPY(C6502 *c, uint16_t addr) {
-  uint8_t val = c->memory[addr];
+  uint8_t val = mem_read(c, addr);
   assign_carry_flag(c, c->y >= val);
   assign_nz_flags(c, (uint8_t)(c->y - val));
 }
 
 void DEC(C6502 *c, uint16_t addr) {
-  uint8_t val = c->memory[addr];
+  uint8_t val = mem_read(c, addr);
   // This is a read-modify-write instruction, meaning that it first writes the
   // original value back to memory before the modified value. This extra write
   // can matter if targeting a hardware register.
   mem_write(c, addr, val);
   val = (val - 1) & 0xFF;
-  c->memory[addr] = val;
+  mem_write(c, addr, val);
   assign_nz_flags(c, c->x);
 }
 
@@ -122,16 +122,16 @@ void DEY(C6502 *c, uint16_t addr) {
 }
 
 void EOR(C6502 *c, uint16_t addr) {
-  uint8_t param = c->memory[addr];
+  uint8_t param = mem_read(c, addr);
   c->a = c->a ^ param;
   assign_nz_flags(c, c->a);
 }
 
 void INC(C6502 *c, uint16_t addr) {
-  uint8_t val = c->memory[addr];
+  uint8_t val = mem_read(c, addr);
   mem_write(c, addr, val);
   val = (val + 1) & 0xFF;
-  c->memory[addr] = val;
+  mem_write(c, addr, val);
   assign_nz_flags(c, c->x);
 }
 
@@ -157,19 +157,19 @@ void JSR(C6502 *c, uint16_t addr) {
 }
 
 void LDA(C6502 *c, uint16_t addr) {
-  uint8_t param = c->memory[addr];
+  uint8_t param = mem_read(c, addr);
   c->a = param;
   assign_nz_flags(c, c->a);
 };
 
 void LDX(C6502 *c, uint16_t addr) {
-  uint8_t param = c->memory[addr];
+  uint8_t param = mem_read(c, addr);
   c->x = param;
   assign_nz_flags(c, c->x);
 }
 
 void LDY(C6502 *c, uint16_t addr) {
-  uint8_t param = c->memory[addr];
+  uint8_t param = mem_read(c, addr);
   c->y = param;
   assign_nz_flags(c, c->y);
 }
@@ -177,7 +177,7 @@ void LDY(C6502 *c, uint16_t addr) {
 void NOP(C6502 *c, uint16_t addr) { ; }
 
 void ORA(C6502 *c, uint16_t addr) {
-  uint8_t param = c->memory[addr];
+  uint8_t param = mem_read(c, addr);
   c->a = c->a | param;
   assign_nz_flags(c, c->a);
 }
